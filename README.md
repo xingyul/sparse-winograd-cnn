@@ -4,7 +4,7 @@ This is the code and models for paper <a href="https://openreview.net/forum?id=H
 ### Introduction
 This work is based on our ICLR 2018 paper. We propose modifications to Winograd-based CNN architecture to enable operation savings from Winograd’s minimal filtering algorithm and network pruning to be combined. 
 
-Convolutional Neural Networks (CNNs) are computationally intensive, which limits their application on mobile devices. Their energy is dominated by the number of multiplies needed to perform the convolutions. Winograd’s minimal filtering algorithm and network pruning can reduce the operation count, but these two methods cannot be straightforwardly combined — applying the Winograd transform fills in the sparsity in both the weights and the activations. We propose two modifications to Winograd-based CNNs to enable these methods to be combined. 
+Convolutional Neural Networks (CNNs) are computationally intensive, which limits their application on mobile devices. Their energy is dominated by the number of multiplies needed to perform the convolutions. Winograd’s minimal filtering algorithm and network pruning can reduce the operation count, but these two methods cannot be straightforwardly combined — applying the Winograd transform fills in the sparsity in both the weights and the activations. We propose two modifications to Winograd-based CNNs to enable these methods to exploit sparsity. 
 
 In this repository, we release code and data for training Winograd-ReLU CNN on ImageNet as well as pre-trained and iteratively pruned Winograd-ReLU models.
 
@@ -22,9 +22,7 @@ If you find our work useful in your research, please consider citing:
 
 Install <a href="https://www.tensorflow.org/get_started/os_setup" target="_blank">TensorFlow</a> and <a href="https://github.com/ppwwyyxx/tensorpack" target="_blank">Tensorpack</a>. The code has been tested with Python 2.7, TensorFlow 1.3.0, CUDA 8.0 and cuDNN 5.1 on Ubuntu 14.04.
 
-Users may also need to download raw <a href="http://image-net.org/" target="_blank">ImageNet</a> dataset for ImageNet experiments.
-
-Users should ensure that the <a href="https://github.com/ppwwyyxx/tensorpack/tree/master/examples/ResNet" target="_blank">Tensorpack ResNet example</a> can run with ImageNet.
+Users may also need to download raw <a href="http://image-net.org/" target="_blank">ImageNet</a> dataset for ImageNet experiments. Users should ensure that the <a href="https://github.com/ppwwyyxx/tensorpack/tree/master/examples/ResNet" target="_blank">Tensorpack ResNet example</a> can run with ImageNet.
 
 Install customized Tensorflow Op:
 
