@@ -1,0 +1,154 @@
+#if GOOGLE_CUDA
+#define EIGEN_USE_GPU
+#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
+
+// dim3 threadsPerBlock(C)
+// dim3 numBlocks(Batch, nH, nW)
+
+// I = (Batch, H, W, C)
+// O = (16, Batch, nH, nW, C)
+template <typename T>
+__global__ void Winograd2x2ImTransGradCompute(const float *Output_grad, float *Input_grad, int C, int B, int H, int W, int pad_h, int pad_w) {
+	int bx = blockIdx.x; // w
+	int by = blockIdx.y; // h
+	int bz = blockIdx.z; // b
+	int tx = threadIdx.x; // c
+
+	int nH = (H + 1) / 2;
+	int nW = (W + 1) / 2;
+
+	T trans_input_grad_patch_0 = Output_grad [ 0 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_1 = Output_grad [ 1 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_2 = Output_grad [ 2 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_3 = Output_grad [ 3 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_4 = Output_grad [ 4 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_5 = Output_grad [ 5 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_6 = Output_grad [ 6 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_7 = Output_grad [ 7 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_8 = Output_grad [ 8 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_9 = Output_grad [ 9 * B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_10= Output_grad [ 10* B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_11= Output_grad [ 11* B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_12= Output_grad [ 12* B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_13= Output_grad [ 13* B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_14= Output_grad [ 14* B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+	T trans_input_grad_patch_15= Output_grad [ 15* B * nH * nW * C + bz * nH * nW * C + (by * nW + bx) * C + tx ];
+
+	// __syncthreads();
+	/*if((bx == 0) && (by == 0) && (bz == 0) && (tx == 0)) {
+		printf("%f ", trans_input_grad_patch_0);
+		printf("%f ", trans_input_grad_patch_1);
+		printf("%f ", trans_input_grad_patch_2);
+		printf("%f ", trans_input_grad_patch_3);
+		printf("\n");
+		printf("%f ", trans_input_grad_patch_4);
+		printf("%f ", trans_input_grad_patch_5);
+		printf("%f ", trans_input_grad_patch_6);
+		printf("%f ", trans_input_grad_patch_7);
+		printf("\n");
+		printf("%f ", trans_input_grad_patch_8);
+		printf("%f ", trans_input_grad_patch_9);
+		printf("%f ", trans_input_grad_patch_10);
+		printf("%f ", trans_input_grad_patch_11);
+		printf("\n");
+		printf("%f ", trans_input_grad_patch_12);
+		printf("%f ", trans_input_grad_patch_13);
+		printf("%f ", trans_input_grad_patch_14);
+		printf("%f ", trans_input_grad_patch_15);
+		printf("\n");
+		printf("\n");
+	}*/
+	T input_grad_patch_0 = trans_input_grad_patch_0; 
+	T input_grad_patch_1 = trans_input_grad_patch_1 - trans_input_grad_patch_2 + trans_input_grad_patch_3;
+	T input_grad_patch_2 = trans_input_grad_patch_1 - trans_input_grad_patch_0 + trans_input_grad_patch_2;     
+	T input_grad_patch_3 =-trans_input_grad_patch_3;
+	T input_grad_patch_4 = trans_input_grad_patch_4 - trans_input_grad_patch_8 + trans_input_grad_patch_12; 
+	T input_grad_patch_5 = trans_input_grad_patch_5 - trans_input_grad_patch_6 + trans_input_grad_patch_7 - 
+									 trans_input_grad_patch_9 + trans_input_grad_patch_10 - trans_input_grad_patch_11 + 
+									 trans_input_grad_patch_13 - trans_input_grad_patch_14 + trans_input_grad_patch_15; 
+	T input_grad_patch_6 = trans_input_grad_patch_5 - trans_input_grad_patch_4 + trans_input_grad_patch_6 + 
+									 trans_input_grad_patch_8 - trans_input_grad_patch_9 - trans_input_grad_patch_10 - 
+									 trans_input_grad_patch_12 + trans_input_grad_patch_13 + trans_input_grad_patch_14; 
+	T input_grad_patch_7 = trans_input_grad_patch_11 - trans_input_grad_patch_7 - trans_input_grad_patch_15;
+	T input_grad_patch_8 = trans_input_grad_patch_4 - trans_input_grad_patch_0 + trans_input_grad_patch_8; 
+	T input_grad_patch_9 = trans_input_grad_patch_2 - trans_input_grad_patch_1 - trans_input_grad_patch_3 + 
+									 trans_input_grad_patch_5 - trans_input_grad_patch_6 + trans_input_grad_patch_7 + 
+									 trans_input_grad_patch_9 - trans_input_grad_patch_10 + trans_input_grad_patch_11;    
+	T input_grad_patch_10= trans_input_grad_patch_0 - trans_input_grad_patch_1 - trans_input_grad_patch_2 - 
+									 trans_input_grad_patch_4 + trans_input_grad_patch_5 + trans_input_grad_patch_6 - 
+									 trans_input_grad_patch_8 + trans_input_grad_patch_9 + trans_input_grad_patch_10;  
+	T input_grad_patch_11= trans_input_grad_patch_3 - trans_input_grad_patch_7 - trans_input_grad_patch_11;
+	T input_grad_patch_12=-trans_input_grad_patch_12;
+	T input_grad_patch_13= trans_input_grad_patch_14 - trans_input_grad_patch_13 - trans_input_grad_patch_15;  
+	T input_grad_patch_14= trans_input_grad_patch_12 - trans_input_grad_patch_13 - trans_input_grad_patch_14;
+	T input_grad_patch_15= trans_input_grad_patch_15;
+	/*if((bx == 0) && (by == 0) && (bz == 0) && (tx == 0)) {
+		printf("%f ", input_grad_patch_0);
+		printf("%f ", input_grad_patch_1);
+		printf("%f ", input_grad_patch_2);
+		printf("%f ", input_grad_patch_3);
+		printf("\n");
+		printf("%f ", input_grad_patch_4);
+		printf("%f ", input_grad_patch_5);
+		printf("%f ", input_grad_patch_6);
+		printf("%f ", input_grad_patch_7);
+		printf("\n");
+		printf("%f ", input_grad_patch_8);
+		printf("%f ", input_grad_patch_9);
+		printf("%f ", input_grad_patch_10);
+		printf("%f ", input_grad_patch_11);
+		printf("\n");
+		printf("%f ", input_grad_patch_12);
+		printf("%f ", input_grad_patch_13);
+		printf("%f ", input_grad_patch_14);
+		printf("%f ", input_grad_patch_15);
+		printf("\n");
+		printf("\n");
+	}*/
+	int xBase = 2 * bx - pad_w;
+	int yBase = 2 * by - pad_h;
+	int f_x, f_y;
+	f_x = xBase + 0; f_y = yBase + 0;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_0);
+	f_x = xBase + 1; f_y = yBase + 0;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_1);
+	f_x = xBase + 2; f_y = yBase + 0;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_2);
+	f_x = xBase + 3; f_y = yBase + 0;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_3);
+	f_x = xBase + 0; f_y = yBase + 1;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_4);
+	f_x = xBase + 1; f_y = yBase + 1;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_5);
+	f_x = xBase + 2; f_y = yBase + 1;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_6);
+	f_x = xBase + 3; f_y = yBase + 1;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_7);
+	f_x = xBase + 0; f_y = yBase + 2;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_8);
+	f_x = xBase + 1; f_y = yBase + 2;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_9);
+	f_x = xBase + 2; f_y = yBase + 2;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_10);
+	f_x = xBase + 3; f_y = yBase + 2;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_11);
+	f_x = xBase + 0; f_y = yBase + 3;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_12);
+	f_x = xBase + 1; f_y = yBase + 3;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_13);
+	f_x = xBase + 2; f_y = yBase + 3;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_14);
+	f_x = xBase + 3; f_y = yBase + 3;
+	if((f_x > -1) && (f_x < W) && (f_y > -1) && (f_y < H)) atomicAdd(Input_grad + (bz * H * W * C + f_y * W * C + f_x * C + tx), input_grad_patch_15);
+} 
+
+void Winograd2x2ImTransGradComputeLauncher(const float *Output_grad, float *Input_grad, int C, int B, int H, int W, int pad_h, int pad_w) {
+	int n_patch_width = (W + 1 + 2 * pad_w - 4) / 2 + 1;
+	int n_patch_height = (H + 1 + 2 * pad_h - 4) / 2 + 1;
+	dim3 blockDim1(C, 1, 1);
+	dim3 gridDim1(n_patch_height, n_patch_width, B);
+	cudaMemset(Input_grad, 0, sizeof(float) * B * C * H * W); 
+	Winograd2x2ImTransGradCompute<float><<<gridDim1, blockDim1>>>(Output_grad, Input_grad, C, B, H, W, pad_h, pad_w);
+}
+
+#endif
