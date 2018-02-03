@@ -32,7 +32,7 @@ Install customized Tensorflow Op:
 
 Users may also change the ``-arch`` flag in ``winograd2x2_cublas/winograd2x2_imTrans/Makefile`` and ``winograd2x2_cublas/winograd2x2_conv/Makefile`` to suit their GPU computing capability.
 
-Put ``ResNet-18-var/winograd_conv.py`` and ``ResNet-18-var/winograd_imtrans.py`` into ``tensorpack/models`` directory.
+Put ``ResNet-18-var/winograd_conv.py`` and ``ResNet-18-var/winograd_imtrans.py`` into the cloned ``tensorpack/models`` directory.
 
 ### Usage
 
