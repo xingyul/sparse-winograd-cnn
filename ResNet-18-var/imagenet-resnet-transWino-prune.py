@@ -116,10 +116,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res2a_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_2a_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W2a_2a', l_bra, 64, 64, mask=mask_dict['Winograd_W2a_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W2a_2a', l_bra, 64, 64, mask=mask_dict['Winograd_W2a_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res2a_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_2a_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W2a_2b', l_bra, 64, 64, mask=mask_dict['Winograd_W2a_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W2a_2b', l_bra, 64, 64, mask=mask_dict['Winograd_W2a_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res2a_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -130,10 +130,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res2b_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_2b_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W2b_2a', l_bra, 64, 64, mask=mask_dict['Winograd_W2b_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W2b_2a', l_bra, 64, 64, mask=mask_dict['Winograd_W2b_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res2b_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_2b_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W2b_2b', l_bra, 64, 64, mask=mask_dict['Winograd_W2b_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W2b_2b', l_bra, 64, 64, mask=mask_dict['Winograd_W2b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res2b_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -143,10 +143,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res3a_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_3a_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W3a_2a', l_bra, 64, 128, mask=mask_dict['Winograd_W3a_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W3a_2a', l_bra, 64, 128, mask=mask_dict['Winograd_W3a_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res3a_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_3a_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W3a_2b', l_bra, 128, 128, mask=mask_dict['Winograd_W3a_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W3a_2b', l_bra, 128, 128, mask=mask_dict['Winograd_W3a_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res3a_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -157,10 +157,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res3b_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_3b_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W3b_2a', l_bra, 128, 128, mask=mask_dict['Winograd_W3b_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W3b_2a', l_bra, 128, 128, mask=mask_dict['Winograd_W3b_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res3b_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_3b_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W3b_2b', l_bra, 128, 128, mask=mask_dict['Winograd_W3b_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W3b_2b', l_bra, 128, 128, mask=mask_dict['Winograd_W3b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res3b_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -170,10 +170,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res4a_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_4a_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W4a_2a', l_bra, 128, 256, mask=mask_dict['Winograd_W4a_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W4a_2a', l_bra, 128, 256, mask=mask_dict['Winograd_W4a_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res4a_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_4a_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W4a_2b', l_bra, 256, 256, mask=mask_dict['Winograd_W4a_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W4a_2b', l_bra, 256, 256, mask=mask_dict['Winograd_W4a_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res4a_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -184,10 +184,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res4b_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_4b_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W4b_2a', l_bra, 256, 256, mask=mask_dict['Winograd_W4b_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W4b_2a', l_bra, 256, 256, mask=mask_dict['Winograd_W4b_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res4b_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_4b_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W4b_2b', l_bra, 256, 256, mask=mask_dict['Winograd_W4b_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W4b_2b', l_bra, 256, 256, mask=mask_dict['Winograd_W4b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res4b_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -197,10 +197,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res5a_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_5a_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W5a_2a', l_bra, 256, 512, mask=mask_dict['Winograd_W5a_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W5a_2a', l_bra, 256, 512, mask=mask_dict['Winograd_W5a_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res5a_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_5a_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W5a_2b', l_bra, 512, 512, mask=mask_dict['Winograd_W5a_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W5a_2b', l_bra, 512, 512, mask=mask_dict['Winograd_W5a_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res5a_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -211,10 +211,10 @@ class Model(ModelDesc):
 
             l_bra = BatchNorm('res5b_bn2a', l)
             l_bra = WinogradImTrans('WinogradImTrans_5b_2a', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W5b_2a', l_bra, 512, 512, mask=mask_dict['Winograd_W5b_2a/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W5b_2a', l_bra, 512, 512, mask=mask_dict['Winograd_W5b_2a/W'] if use_mask else None)
             l_bra = BatchNorm('res5b_bn2b', l_bra)
             l_bra = WinogradImTrans('WinogradImTrans_5b_2b', l_bra, tf.nn.relu)
-            l_bra = WinogradConv('Winograd_W5b_2b', l_bra, 512, 512, mask=mask_dict['Winograd_W5b_2b/W'] if not test else None)
+            l_bra = WinogradConv('Winograd_W5b_2b', l_bra, 512, 512, mask=mask_dict['Winograd_W5b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res5b_bn2c', l_bra)
 
             # l = tf.nn.relu(l)
@@ -327,8 +327,7 @@ def get_config(fake=False, data_format='NHWC'):
                 ClassificationError('wrong-top1', 'val-error-top1'),
                 ClassificationError('wrong-top5', 'val-error-top5')]),
             ScheduledHyperParamSetter('learning_rate',
-                                      # [(0, 2e-2), (30, 2e-3), (30, 2e-4), (95, 1e-5)]),
-                                      [(0, 3e-5), (20, 1e-5), (95, 1e-5)]),
+                                      [(0, 1e-2), (30, 1e-3), (60, 1e-4), (95, 1e-5)]),
             HumanHyperParamSetter('learning_rate'),
         ],
         steps_per_epoch=1280000 // TOTAL_BATCH_SIZE // eval_freq if not test else 0,
@@ -362,14 +361,12 @@ if __name__ == '__main__':
     parser.add_argument('--data', help='ILSVRC dataset dir')
     parser.add_argument('--load', help='load model')
     parser.add_argument('--pruned_dir', help='the directory of pruned model')
-    parser.add_argument('--use_mask', action='store_true')
     parser.add_argument('--fake', help='use fakedata to test or benchmark this model', action='store_true')
     parser.add_argument('--data_format', help='specify NCHW or NHWC',
                         type=str, default='NHWC')
     parser.add_argument('-d', '--depth', help='resnet depth',
                         type=int, default=18, choices=[18, 34, 50, 101])
     parser.add_argument('--test', help='test the model')
-    parser.add_argument('--eval', action='store_true')
     args = parser.parse_args()
 
     if args.test:
@@ -382,11 +379,6 @@ if __name__ == '__main__':
     DEPTH = args.depth
     if args.gpu:
         os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-
-    if args.eval:
-        BATCH_SIZE = 128    # something that can run on one gpu
-        eval_on_ILSVRC12(args.load, args.data)
-        sys.exit()
 
     NR_GPU = get_nr_gpu()
     BATCH_SIZE = TOTAL_BATCH_SIZE // NR_GPU
@@ -401,7 +393,7 @@ if __name__ == '__main__':
     if args.load:
         config.session_init = SaverRestore(args.load)
     if use_mask:
-		mask_dict = pickle.load(open(mask_file_dir, 'rb'))
-		print 'loading mask file: ', mask_file_dir
+        mask_dict = pickle.load(open(mask_file_dir, 'rb'))
+        print 'loading mask file: ', mask_file_dir
     config.nr_tower = NR_GPU
     SyncMultiGPUTrainerParameterServer(config).train()
