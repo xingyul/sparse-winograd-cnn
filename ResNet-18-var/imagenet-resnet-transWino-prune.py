@@ -136,8 +136,7 @@ class Model(ModelDesc):
             l_bra = WinogradConv('Winograd_W2b_2b', l_bra, 64, 64, mask=mask_dict['Winograd_W2b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res2b_bn2c', l_bra)
 
-            # l = tf.nn.relu(l)
-            l = ReLU('res2b_1_relu', l)
+            l = tf.nn.relu(l)
             l = l + l_bra
             l = MaxPooling('pool2', l, 3, stride=2, padding='SAME')
 
@@ -149,8 +148,7 @@ class Model(ModelDesc):
             l_bra = WinogradConv('Winograd_W3a_2b', l_bra, 128, 128, mask=mask_dict['Winograd_W3a_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res3a_bn2c', l_bra)
 
-            # l = tf.nn.relu(l)
-            l = ReLU('res3a_1_relu', l)
+            l = tf.nn.relu(l)
             l = Conv2D('res3a_1', l, 128, 1, nl=tf.identity)
             l = BatchNorm('res3a_bn1', l)
             l = l + l_bra
@@ -163,8 +161,7 @@ class Model(ModelDesc):
             l_bra = WinogradConv('Winograd_W3b_2b', l_bra, 128, 128, mask=mask_dict['Winograd_W3b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res3b_bn2c', l_bra)
 
-            # l = tf.nn.relu(l)
-            l = ReLU('res3b_1_relu', l)
+            l = tf.nn.relu(l)
             l = l + l_bra
             l = MaxPooling('pool3', l, 3, stride=2, padding='SAME')
 
@@ -176,8 +173,7 @@ class Model(ModelDesc):
             l_bra = WinogradConv('Winograd_W4a_2b', l_bra, 256, 256, mask=mask_dict['Winograd_W4a_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res4a_bn2c', l_bra)
 
-            # l = tf.nn.relu(l)
-            l = ReLU('res4a_1_relu', l)
+            l = tf.nn.relu(l)
             l = Conv2D('res4a_1', l, 256, 1, nl=tf.identity)
             l = BatchNorm('res4a_bn1', l)
             l = l + l_bra
@@ -190,8 +186,7 @@ class Model(ModelDesc):
             l_bra = WinogradConv('Winograd_W4b_2b', l_bra, 256, 256, mask=mask_dict['Winograd_W4b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res4b_bn2c', l_bra)
 
-            # l = tf.nn.relu(l)
-            l = ReLU('res4b_1_relu', l)
+            l = tf.nn.relu(l)
             l = l + l_bra
             # l = MaxPooling('pool4', l, 3, stride=2, padding='SAME')
 
@@ -203,8 +198,7 @@ class Model(ModelDesc):
             l_bra = WinogradConv('Winograd_W5a_2b', l_bra, 512, 512, mask=mask_dict['Winograd_W5a_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res5a_bn2c', l_bra)
 
-            # l = tf.nn.relu(l)
-            l = ReLU('res5a_1_relu', l)
+            l = tf.nn.relu(l)
             l = Conv2D('res5a_1', l, 512, 1, nl=tf.identity)
             l = BatchNorm('res5a_bn1', l)
             l = l + l_bra
@@ -217,11 +211,9 @@ class Model(ModelDesc):
             l_bra = WinogradConv('Winograd_W5b_2b', l_bra, 512, 512, mask=mask_dict['Winograd_W5b_2b/W'] if use_mask else None)
             l_bra = BatchNorm('res5b_bn2c', l_bra)
 
-            # l = tf.nn.relu(l)
-            l = ReLU('res5b_1_relu', l)
+            l = tf.nn.relu(l)
             l = l + l_bra
-            # l = tf.nn.relu(l)
-            l = ReLU('gap_relu', l)
+            l = tf.nn.relu(l)
             l = GlobalAvgPooling('gap', l)
             l = Dropout('drop_fc', l, 0.85)
             # l = Dropout('drop_fc', l, 0.7)
