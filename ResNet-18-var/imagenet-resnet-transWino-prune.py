@@ -365,7 +365,7 @@ if __name__ == '__main__':
         test = True
 
     if args.pruned_dir:
-        mask_file_dir = glob.glob(args.pruned_dir + '*.pkl')[0]
+        mask_file_dir = glob.glob(os.path.join(args.pruned_dir, '*.pkl'))[0]
         use_mask = True
 
     DEPTH = args.depth
@@ -380,7 +380,7 @@ if __name__ == '__main__':
     logger.info("Running on {} GPUs. Batch size per GPU: {}".format(NR_GPU, BATCH_SIZE))
     config = get_config(fake=args.fake, data_format=args.data_format)
     if args.pruned_dir:
-        model_file = glob.glob(args.pruned_dir + '*.data*')[0]
+        model_file = glob.glob(os.path.join(args.pruned_dir, '*.data*'))[0]
         config.session_init = SaverRestore(model_file)
     if args.load:
         config.session_init = SaverRestore(args.load)
