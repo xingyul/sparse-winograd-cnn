@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# File: conv2d.py
-# Author: Yuxin Wu <ppwwyyxx@gmail.com>
+# File: winograd_imtrans.py
+# Author: Xingyu Liu <liuxy610042@gmail.com>
 
 import tensorflow as tf
 from .common import layer_register
 from ..utils.argtools import shape2d, shape4d
 
-import winograd2x2_imTrans.winograd2x2_imTrans 
+import winograd2x2_imTrans.winograd2x2_imTrans
 
 __all__ = ['WinogradImTrans']
 

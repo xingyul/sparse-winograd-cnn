@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# File: conv2d.py
-# Author: Yuxin Wu <ppwwyyxx@gmail.com>
+# File: winograd_conv.py
+# Author: Xingyu Liu <liuxy610042@gmail.com>
 
 import tensorflow as tf
 from .common import layer_register
