@@ -319,7 +319,7 @@ def get_config(fake=False, data_format='NHWC'):
                 ClassificationError('wrong-top1', 'val-error-top1'),
                 ClassificationError('wrong-top5', 'val-error-top5')]),
             ScheduledHyperParamSetter('learning_rate',
-                                      [(0, 1e-2), (30, 1e-3), (60, 1e-4), (95, 1e-5)]),
+                                      [(0, 2e-2), (30, 2e-3), (60, 2e-4), (95, 5e-5)]),
             HumanHyperParamSetter('learning_rate'),
         ],
         steps_per_epoch=1280000 // TOTAL_BATCH_SIZE // eval_freq if not test else 0,
