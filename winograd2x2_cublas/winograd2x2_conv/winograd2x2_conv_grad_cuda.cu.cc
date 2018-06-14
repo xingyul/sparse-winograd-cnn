@@ -1,6 +1,6 @@
 #if GOOGLE_CUDA
 #define EIGEN_USE_GPU
-#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
+// #include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
 #include <cublas_v2.h>
 
 // dim3 threadsPerBlock(C)
