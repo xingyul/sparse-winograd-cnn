@@ -242,7 +242,7 @@ def get_data(train_or_test):
 
     datadir = args.data
     ds = dataset.ILSVRC12(datadir, train_or_test,
-                          shuffle=True if isTrain else False, dir_structure='train')
+                          shuffle=True if isTrain else False, dir_structure='original')
     if isTrain:
         class Resize(imgaug.ImageAugmentor):
             """
@@ -387,5 +387,6 @@ if __name__ == '__main__':
     if use_mask:
         mask_dict = pickle.load(open(mask_file_dir, 'rb'))
         print 'loading mask file: ', mask_file_dir
-    config.nr_tower = NR_GPU
-    SyncMultiGPUTrainerParameterServer(config).train()
+    #config.nr_tower = NR_GPU
+    trainer = SyncMultiGPUTrainerParameterServer(NR_GPU, ps_device='gpu')
+    launch_train_with_config(config, trainer)
