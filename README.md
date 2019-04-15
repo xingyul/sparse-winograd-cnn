@@ -1,6 +1,8 @@
 ## Efficient Sparse-Winograd Convolutional Neural Networks
 This is the code and models for paper <a href="https://openreview.net/forum?id=HJzgZ3JCW" target="_blank">Efficient Sparse-Winograd Convolutional Neural Networks</a> by <a href="https://stanford.edu/~xyl" target="_blank">Xingyu Liu</a> et al.
 
+![architecture](https://github.com/xingyul/sparse-winograd-cnn/blob/master/doc/teaser.png)
+
 ### Introduction
 This work is based on our ICLR 2018 paper. We propose modifications to Winograd-based CNN architecture to enable operation savings from Winograd’s minimal filtering algorithm and network pruning to be combined. 
 
@@ -9,7 +11,7 @@ Convolutional Neural Networks (CNNs) are computationally intensive, which limits
 In this repository, we release code and data for training Winograd-ReLU CNN on ImageNet as well as pre-trained and iteratively pruned Winograd-ReLU models.
 
 ### Citation
-If you find our work useful in your research, please consider citing:
+If you find our work useful in your research, please cite:
 
     @article{Liu2018Winograd,
       title={Efficient Sparse-Winograd Convolutional Neural Networks},
