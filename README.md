@@ -13,7 +13,7 @@ In this repository, we release code and data for training Winograd-ReLU CNN on I
 ### Citation
 If you find our work useful in your research, please cite:
 
-    @article{Liu2018Winograd,
+    @article{liu:2018:Winograd,
       title={Efficient Sparse-Winograd Convolutional Neural Networks},
       author={Xingyu Liu and Jeff Pool and Song Han and William J. Dally},
       journal={International Conference on Learning Representations (ICLR)},
